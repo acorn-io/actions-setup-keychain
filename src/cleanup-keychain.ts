@@ -2,7 +2,8 @@ import * as core from '@actions/core'
 import { execThrow } from './utils'
 
 const IS_MACOS = process.platform === 'darwin'
-const NAME = core.getInput('keychain-name')
+const NAME = core.getInput('name')
+const SCOPE = core.getInput('scope')
 
 async function run() {
   try {
@@ -27,11 +28,11 @@ async function post() {
 
   if (list.length) {
     console.log('Restoring keychain list to:', list)
-    await execThrow('security', ['list-keychains', '-s', ...list], 'restoring keychain list')
+    await execThrow('security', ['list-keychains', '-d', SCOPE, '-s', ...list], 'restoring keychain list')
   }
 
   if (def) {
     console.log('Restoring default keychain to:', def)
-    await execThrow('security', ['default-keychain', '-s', def], 'restoring default keychain')
+    await execThrow('security', ['default-keychain', '-d', SCOPE, '-s', def], 'restoring default keychain')
   }
 }

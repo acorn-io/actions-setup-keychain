@@ -5,17 +5,21 @@ branding:
   color: 'orange'
 author: 'Acorn Labs'
 inputs:
-  keychain-name:
+  name:
     description: 'Name to use for the keychain.'
     default: 'build.keychain'
     required: false
-  keychain-password:
+  password:
     description: 'Password to use for the keychain.'
     default: 'letmein'
     required: false
-  keychain-timeout:
+  timeout:
     description: 'Seconds before timeout keychain authentication.'
     default: '86400'
+    required: false
+  scope:
+    description: 'Keychain scope to use'
+    default: 'user'
     required: false
 runs:
   using: 'node16'

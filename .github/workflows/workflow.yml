@@ -13,6 +13,6 @@ jobs:
       id: setup-keychain
       uses: ./
     - name: Echo keychain name
-      run: echo 'Keychain name is ${{ steps.setup-keychain.outputs.keychain-name }}'
+      run: echo 'Keychain name is ${{ steps.setup-keychain.outputs.name }}'
     - name: Echo keychain password
-      run: echo 'Keychain password is ${{ steps.setup-keychain.outputs.keychain-password }}'
+      run: echo 'Keychain password is ${{ steps.setup-keychain.outputs.password }}'
