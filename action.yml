@@ -1,0 +1,23 @@
+name: 'Setup Keychain'
+description: 'Set up a macOS keychain'
+branding:
+  icon: 'feather'
+  color: 'orange'
+author: 'Acorn Labs'
+inputs:
+  keychain-name:
+    description: 'Name to use for the keychain.'
+    default: 'build.keychain'
+    required: false
+  keychain-password:
+    description: 'Password to use for the keychain.'
+    default: 'letmein'
+    required: false
+  keychain-timeout:
+    description: 'Seconds before timeout keychain authentication.'
+    default: '86400'
+    required: false
+runs:
+  using: 'node16'
+  main: 'lib/setup-keychain.js'
+  post: 'lib/setup-keychain.js'

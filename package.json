@@ -1,0 +1,44 @@
+{
+  "name": "setup-keychain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GitHub Action to manage macOS keychain",
+  "main": "lib/setup-keychain.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acorn-io/actions-setup-keychain.git"
+  },
+  "keywords": [
+    "actions",
+    "macos",
+    "keychain",
+    "setup"
+  ],
+  "author": "Acorn Labs",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "@actions/exec": "^1.0.0",
+    "semver": "^7.3.7"
+  },
+  "devDependencies": {
+    "@actions/io": "^1.0.1",
+    "@types/node": "^16",
+    "@types/semver": "^7.3.10",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  },
+  "husky": {
+    "skipCI": true,
+    "hooks": {
+      "pre-commit": "npm run build && npm run format",
+      "post-commit": "git add node_modules/* && git commit -m \"Husky commit correct node modules\""
+    }
+  }
+}
