@@ -41,11 +41,11 @@ async function main() {
     console.log('Created keychain')
   }
 
+  await execThrow('security', ['unlock-keychain', '-p', PASSWORD, NAME], 'unlocking keychain')
   await execThrow('security', ['set-keychain-settings', '-t', TIMEOUT, '-u', NAME], 'setting keychain settings')
   await execThrow('security', ['list-keychains', '-s', NAME, ...list]), 'listing keychains'
   await execThrow('security', ['default-keychain', '-s', NAME], 'setting default keychain')
 
-  out = await execThrow('security', ['unlock-keychain', '-p', PASSWORD, NAME], 'unlocking keychain')
 
   core.setOutput('keychain-name', NAME)
   core.setOutput('keychain-password', PASSWORD)

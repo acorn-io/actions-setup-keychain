@@ -21,6 +21,7 @@ See [action.yml](action.yml) for all options.
 # License
 
 Copyright (c) 2022 Acorn Labs, Inc.
+
 [Copyright Jaehong Kang](https://github.com/sinoru/actions-setup-keychain)
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at

@@ -17,7 +17,7 @@ export async function execThrow(cmd: string, args: string[], msg?: string, ok?: 
     ok = [ok]
   }
 
-  const out = await exec.getExecOutput(cmd, args)
+  const out = await exec.getExecOutput(cmd, args, {ignoreReturnCode: true})
 
   if (out.exitCode && !ok.includes(out.exitCode)) {
     throw new Error('Error ' + msg + ': ' + out.stderr)
