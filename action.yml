@@ -1,4 +1,4 @@
-name: 'Setup Keychain'
+name: 'Setup macOS Keychain'
 description: 'Set up a macOS keychain'
 branding:
   icon: 'feather'
@@ -20,4 +20,4 @@ inputs:
 runs:
   using: 'node16'
   main: 'lib/setup-keychain.js'
-  post: 'lib/setup-keychain.js'
+  post: 'lib/cleanup-keychain.js'

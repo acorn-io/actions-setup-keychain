@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
+import { cleanLine, cleanLines, execThrow } from './utils'
 
 const IS_MACOS = process.platform === 'darwin'
-const IS_POST = !!process.env['STATE_isPost']
 const NAME = core.getInput('keychain-name')
 const PASSWORD = core.getInput('keychain-password')
 const TIMEOUT = core.getInput('keychain-timeout')
@@ -13,45 +13,13 @@ async function run() {
       throw new Error(`${process.platform} is not supported!`)
     }
 
-    if (IS_POST) {
-      await post()
-    } else {
-      await main()
-    }
+    await main()
   } catch (error) {
     core.setFailed((error as Error).message)
   }
 }
 
 run()
-
-// -----------
-
-function cleanLine(line: string) {
-  return line.trim().replace(/^"/, '').replace(/"$/, '')
-}
-
-function cleanLines(lines: string) {
-  return lines.split(/\n/).map(cleanLine)
-}
-
-async function execThrow(cmd: string, args: string[], msg?: string, ok?: number | number[]): Promise<exec.ExecOutput> {
-  if (!ok) {
-    ok = []
-  }
-
-  if (!Array.isArray(ok)) {
-    ok = [ok]
-  }
-
-  const out = await exec.getExecOutput(cmd, args)
-
-  if (out.exitCode && !ok.includes(out.exitCode)) {
-    throw new Error('Error ' + msg + ': ' + out.stderr)
-  }
-
-  return out
-}
 
 async function main() {
   let out: exec.ExecOutput
@@ -81,22 +49,4 @@ async function main() {
 
   core.setOutput('keychain-name', NAME)
   core.setOutput('keychain-password', PASSWORD)
-}
-
-async function post() {
-  const def = core.getState('default')
-  const list: string[] = JSON.parse(core.getState('list')) || []
-
-  console.log('Locking keychain')
-  await exec.exec('security', ['lock-keychain', NAME])
-
-  if (list.length) {
-    console.log('Restoring keychain list to:', list)
-    await exec.exec('security', ['list-keychains', '-s', ...list])
-  }
-
-  if (def) {
-    console.log('Restoring default keychain to:', def)
-    await exec.exec('security', ['default-keychain', '-s', def])
-  }
 }
