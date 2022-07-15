@@ -13,8 +13,8 @@ jobs:
       with:
         node-version: '16.x'
 
-    - name: yarn install
-      run: yarn install
+    - name: npm install
+      run: npm install
 
     - name: Lint
-      run: yarn run format-check
+      run: npm run format-check
